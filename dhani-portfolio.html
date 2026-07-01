@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dhani Reddy — Model</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white: #FFFFFF;
+      --off-white: #F9F9F9;
+      --light-grey: #E8E8E8;
+      --mid-grey: #999999;
+      --dark-grey: #333333;
+      --black: #0A0A0A;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--white);
+      color: var(--black);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 48px;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--light-grey);
+    }
+    .nav-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px; font-weight: 400; letter-spacing: 0.25em;
+      color: var(--black); text-transform: uppercase;
+    }
+    .nav-links { display: flex; gap: 40px; }
+    .nav-links a {
+      text-decoration: none; color: var(--mid-grey);
+      font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--black); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 61px;
+    }
+    .hero-image {
+      overflow: hidden; position: relative;
+    }
+    .hero-image img {
+      width: 100%; height: 100%; object-fit: cover;
+      object-position: top center;
+    }
+    .hero-content {
+      display: flex; flex-direction: column;
+      justify-content: center; padding: 80px 64px;
+      background: var(--white);
+    }
+    .hero-eyebrow {
+      font-size: 9px; letter-spacing: 0.35em; text-transform: uppercase;
+      color: var(--mid-grey); margin-bottom: 24px;
+    }
+    .hero-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(52px, 6vw, 88px);
+      font-weight: 300; line-height: 1;
+      letter-spacing: 0.04em;
+      color: var(--black);
+      margin-bottom: 8px;
+    }
+    .hero-name-last {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(52px, 6vw, 88px);
+      font-weight: 300; line-height: 1;
+      letter-spacing: 0.04em;
+      color: var(--black);
+      font-style: italic;
+      margin-bottom: 40px;
+    }
+    .hero-rule { width: 40px; height: 1px; background: var(--black); margin-bottom: 40px; }
+    .hero-stats { display: flex; flex-direction: column; gap: 16px; margin-bottom: 48px; }
+    .hero-stat {
+      display: flex; justify-content: space-between;
+      align-items: center;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--light-grey);
+    }
+    .hero-stat:last-child { border-bottom: none; padding-bottom: 0; }
+    .stat-label {
+      font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--mid-grey);
+    }
+    .stat-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px; font-weight: 400; color: var(--black);
+      letter-spacing: 0.05em;
+    }
+    .hero-tagline {
+      font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--mid-grey);
+    }
+
+    /* ── PORTFOLIO ── */
+    #portfolio { padding: 80px 48px; background: var(--white); }
+    .section-header {
+      display: flex; align-items: center; gap: 24px;
+      margin-bottom: 48px;
+    }
+    .section-label {
+      font-size: 9px; letter-spacing: 0.35em; text-transform: uppercase;
+      color: var(--mid-grey);
+    }
+    .section-rule { flex: 1; height: 1px; background: var(--light-grey); }
+
+    /* Editorial grid — alternating sizes like Next Models */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 12px;
+      max-width: 1400px; margin: 0 auto;
+    }
+    .photo-slot {
+      overflow: hidden; cursor: pointer; position: relative;
+      background: var(--off-white);
+    }
+    .photo-slot img {
+      width: 100%; height: 100%; object-fit: cover;
+      display: block; transition: transform 0.6s ease;
+    }
+    .photo-slot:hover img { transform: scale(1.04); }
+
+    /* Grid layout — editorial sizing */
+    .photo-slot:nth-child(1) { grid-column: span 5; aspect-ratio: 3/4; }
+    .photo-slot:nth-child(2) { grid-column: span 4; aspect-ratio: 3/4; }
+    .photo-slot:nth-child(3) { grid-column: span 3; aspect-ratio: 3/4; }
+    .photo-slot:nth-child(4) { grid-column: span 3; aspect-ratio: 3/4; }
+    .photo-slot:nth-child(5) { grid-column: span 5; aspect-ratio: 3/4; }
+    .photo-slot:nth-child(6) { grid-column: span 4; aspect-ratio: 3/4; }
+    .photo-slot:nth-child(7) { grid-column: span 4; aspect-ratio: 3/4; }
+    .photo-slot:nth-child(8) { grid-column: span 4; aspect-ratio: 3/4; }
+    .photo-slot:nth-child(9) { grid-column: span 4; aspect-ratio: 3/4; }
+    .photo-slot:nth-child(10) { grid-column: span 6; aspect-ratio: 3/4; }
+    .photo-slot:nth-child(11) { grid-column: span 6; aspect-ratio: 3/4; }
+    .photo-slot:nth-child(12) { grid-column: span 4; aspect-ratio: 3/4; }
+    .photo-slot:nth-child(13) { grid-column: span 4; aspect-ratio: 3/4; }
+    .photo-slot:nth-child(14) { grid-column: span 4; aspect-ratio: 3/4; }
+    .photo-slot:nth-child(15) { grid-column: span 12; aspect-ratio: 21/9; }
+
+    /* ── ABOUT ── */
+    #about {
+      display: grid; grid-template-columns: 1fr 1fr;
+      max-width: 1200px; margin: 0 auto;
+      padding: 100px 48px;
+      gap: 80px; align-items: start;
+    }
+    .about-left {}
+    .about-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(48px, 5vw, 72px);
+      font-weight: 300; line-height: 1.1;
+      color: var(--black); margin-bottom: 32px;
+    }
+    .about-name em { font-style: italic; }
+    .about-text {
+      color: var(--mid-grey); line-height: 2;
+      font-size: 11px; margin-bottom: 40px;
+      max-width: 480px;
+    }
+    .contact-link {
+      display: inline-block;
+      font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--black); text-decoration: none;
+      border-bottom: 1px solid var(--black);
+      padding-bottom: 4px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .contact-link:hover { color: var(--mid-grey); border-color: var(--mid-grey); }
+    .about-right {}
+    .measurements-title {
+      font-size: 9px; letter-spacing: 0.35em; text-transform: uppercase;
+      color: var(--mid-grey); margin-bottom: 24px;
+    }
+    .measurements-grid { display: flex; flex-direction: column; }
+    .measurement-row {
+      display: flex; justify-content: space-between;
+      align-items: center; padding: 16px 0;
+      border-bottom: 1px solid var(--light-grey);
+    }
+    .measurement-row:first-child { border-top: 1px solid var(--light-grey); }
+    .m-label {
+      font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--mid-grey);
+    }
+    .m-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px; color: var(--black); letter-spacing: 0.05em;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--black); color: var(--white);
+      text-align: center; padding: 120px 48px;
+    }
+    .contact-eyebrow {
+      font-size: 9px; letter-spacing: 0.35em; text-transform: uppercase;
+      color: var(--mid-grey); margin-bottom: 24px;
+    }
+    .contact-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(40px, 6vw, 72px);
+      font-weight: 300; color: var(--white);
+      margin-bottom: 48px; line-height: 1.1;
+    }
+    .contact-email-link {
+      font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--white); text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.3);
+      padding-bottom: 4px;
+      transition: border-color 0.2s;
+    }
+    .contact-email-link:hover { border-color: var(--white); }
+    .contact-availability {
+      display: inline-block; margin-top: 48px;
+      padding: 12px 32px; border: 1px solid rgba(255,255,255,0.2);
+      font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black); text-align: center;
+      padding: 24px; border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    footer p {
+      font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      display: none; position: fixed; inset: 0; z-index: 999;
+      background: rgba(0,0,0,0.97);
+      align-items: center; justify-content: center;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img {
+      max-width: 88vw; max-height: 88vh;
+      object-fit: contain;
+    }
+    .lightbox-close {
+      position: absolute; top: 24px; right: 32px;
+      font-size: 24px; color: rgba(255,255,255,0.6); cursor: pointer;
+      background: none; border: none; letter-spacing: 0.1em;
+      font-family: 'Montserrat', sans-serif; font-weight: 200;
+    }
+    .lightbox-close:hover { color: white; }
+    .lightbox-prev, .lightbox-next {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      font-size: 24px; color: rgba(255,255,255,0.4); cursor: pointer;
+      background: none; border: none; padding: 20px;
+      transition: color 0.2s;
+    }
+    .lightbox-prev:hover, .lightbox-next:hover { color: white; }
+    .lightbox-prev { left: 8px; }
+    .lightbox-next { right: 8px; }
+    .lightbox-counter {
+      position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+      font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 18px 24px; }
+      .nav-links { gap: 24px; }
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-image { height: 70vh; }
+      .hero-content { padding: 48px 24px; }
+      #portfolio { padding: 60px 24px; }
+      .portfolio-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+      .photo-slot:nth-child(n) { grid-column: span 1; aspect-ratio: 3/4; }
+      .photo-slot:nth-child(15) { grid-column: span 2; aspect-ratio: 16/9; }
+      #about { grid-template-columns: 1fr; padding: 60px 24px; gap: 48px; }
+      #contact { padding: 80px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-name">Dhani Reddy</span>
+  <div class="nav-links">
+    <a href="#portfolio">Portfolio</a>
+    <a href="#about">Profile</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-image">
+    <img src="https://objectstorage.us-ashburn-1.oraclecloud.com/n/ideul7fgzxb6/b/Dharana_portfolio/o/_TF02423_Original.jpeg" alt="Dhani Reddy" loading="eager"/>
+  </div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Model &nbsp;·&nbsp; Brand &amp; Editorial</p>
+    <h1 class="hero-name">Dhani</h1>
+    <h1 class="hero-name-last">Reddy</h1>
+    <div class="hero-rule"></div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="stat-label">Height</span>
+        <span class="stat-value">5′5″</span>
+      </div>
+      <div class="hero-stat">
+        <span class="stat-label">Bust</span>
+        <span class="stat-value">30″</span>
+      </div>
+      <div class="hero-stat">
+        <span class="stat-label">Waist</span>
+        <span class="stat-value">24″</span>
+      </div>
+      <div class="hero-stat">
+        <span class="stat-label">Hips</span>
+        <span class="stat-value">33″</span>
+      </div>
+      <div class="hero-stat">
+        <span class="stat-label">Eyes</span>
+        <span class="stat-value">Dark Brown</span>
+      </div>
+      <div class="hero-stat">
+        <span class="stat-label">Hair</span>
+        <span class="stat-value">Black</span>
+      </div>
+      <div class="hero-stat">
+        <span class="stat-label">Age</span>
+        <span class="stat-value">23</span>
+      </div>
+    </div>
+    <p class="hero-tagline">Available for Brand Campaigns &nbsp;·&nbsp; Editorial &nbsp;·&nbsp; Commercial</p>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="section-header">
+    <span class="section-label">Portfolio</span>
+    <div class="section-rule"></div>
+  </div>
+  <div class="portfolio-grid">
+    <div class="photo-slot" onclick="openLightbox(0)">
+      <img src="https://objectstorage.us-ashburn-1.oraclecloud.com/n/ideul7fgzxb6/b/Dharana_portfolio/o/_TF02407_Original.jpeg" alt="Dhani Reddy" loading="lazy"/>
+    </div>
+    <div class="photo-slot" onclick="openLightbox(1)">
+      <img src="https://objectstorage.us-ashburn-1.oraclecloud.com/n/ideul7fgzxb6/b/Dharana_portfolio/o/_TF02424_Original.jpeg" alt="Dhani Reddy" loading="lazy"/>
+    </div>
+    <div class="photo-slot" onclick="openLightbox(2)">
+      <img src="https://objectstorage.us-ashburn-1.oraclecloud.com/n/ideul7fgzxb6/b/Dharana_portfolio/o/_TF02688_Original.jpeg" alt="Dhani Reddy" loading="lazy"/>
+    </div>
+    <div class="photo-slot" onclick="openLightbox(3)">
+      <img src="https://objectstorage.us-ashburn-1.oraclecloud.com/n/ideul7fgzxb6/b/Dharana_portfolio/o/_TF02878_Original.jpeg" alt="Dhani Reddy" loading="lazy"/>
+    </div>
+    <div class="photo-slot" onclick="openLightbox(4)">
+      <img src="https://objectstorage.us-ashburn-1.oraclecloud.com/n/ideul7fgzxb6/b/Dharana_portfolio/o/_TF02822_Original.jpeg" alt="Dhani Reddy" loading="lazy"/>
+    </div>
+    <div class="photo-slot" onclick="openLightbox(5)">
+      <img src="https://objectstorage.us-ashburn-1.oraclecloud.com/n/ideul7fgzxb6/b/Dharana_portfolio/o/_TF02810_Original.jpeg" alt="Dhani Reddy" loading="lazy"/>
+    </div>
+    <div class="photo-slot" onclick="openLightbox(6)">
+      <img src="https://objectstorage.us-ashburn-1.oraclecloud.com/n/ideul7fgzxb6/b/Dharana_portfolio/o/_TF02906_Original.jpeg" alt="Dhani Reddy" loading="lazy"/>
+    </div>
+    <div class="photo-slot" onclick="openLightbox(7)">
+      <img src="https://objectstorage.us-ashburn-1.oraclecloud.com/n/ideul7fgzxb6/b/Dharana_portfolio/o/_TF02253_Original.jpeg" alt="Dhani Reddy" loading="lazy"/>
+    </div>
+    <div class="photo-slot" onclick="openLightbox(8)">
+      <img src="https://objectstorage.us-ashburn-1.oraclecloud.com/n/ideul7fgzxb6/b/Dharana_portfolio/o/_TF02199_Original.jpeg" alt="Dhani Reddy" loading="lazy"/>
+    </div>
+    <div class="photo-slot" onclick="openLightbox(9)">
+      <img src="https://objectstorage.us-ashburn-1.oraclecloud.com/n/ideul7fgzxb6/b/Dharana_portfolio/o/_TF01943_Original.jpeg" alt="Dhani Reddy" loading="lazy"/>
+    </div>
+    <div class="photo-slot" onclick="openLightbox(10)">
+      <img src="https://objectstorage.us-ashburn-1.oraclecloud.com/n/ideul7fgzxb6/b/Dharana_portfolio/o/IMG_4949.jpeg" alt="Dhani Reddy" loading="lazy"/>
+    </div>
+    <div class="photo-slot" onclick="openLightbox(11)">
+      <img src="https://objectstorage.us-ashburn-1.oraclecloud.com/n/ideul7fgzxb6/b/Dharana_portfolio/o/IMG_0929.jpeg" alt="Dhani Reddy" loading="lazy"/>
+    </div>
+    <div class="photo-slot" onclick="openLightbox(12)">
+      <img src="https://objectstorage.us-ashburn-1.oraclecloud.com/n/ideul7fgzxb6/b/Dharana_portfolio/o/IMG_3044.jpeg" alt="Dhani Reddy" loading="lazy"/>
+    </div>
+    <div class="photo-slot" onclick="openLightbox(13)">
+      <img src="https://objectstorage.us-ashburn-1.oraclecloud.com/n/ideul7fgzxb6/b/Dharana_portfolio/o/IMG_5093.jpeg" alt="Dhani Reddy" loading="lazy"/>
+    </div>
+    <div class="photo-slot" onclick="openLightbox(14)">
+      <img src="https://objectstorage.us-ashburn-1.oraclecloud.com/n/ideul7fgzxb6/b/Dharana_portfolio/o/IMG_5239.jpeg" alt="Dhani Reddy" loading="lazy"/>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<div id="about">
+  <div class="about-left">
+    <h2 class="about-name">Dhani<br><em>Reddy</em></h2>
+    <p class="about-text">A natural presence in front of the lens, Dhani brings a rare blend of elegance and authenticity to every shoot. With a background rooted in classical Kuchipudi dance and visual arts, she carries an innate sense of poise and expression that translates seamlessly across editorial and commercial work.</p>
+    <p class="about-text">Available for brand campaigns, lookbooks, and editorial projects. Open to national and international assignments.</p>
+    <a href="mailto:Reddydani09@gmail.com" class="contact-link">Get in Touch</a>
+  </div>
+  <div class="about-right">
+    <p class="measurements-title">Measurements</p>
+    <div class="measurements-grid">
+      <div class="measurement-row"><span class="m-label">Height</span><span class="m-value">5′5″</span></div>
+      <div class="measurement-row"><span class="m-label">Bust</span><span class="m-value">30″</span></div>
+      <div class="measurement-row"><span class="m-label">Waist</span><span class="m-value">24″</span></div>
+      <div class="measurement-row"><span class="m-label">Hips</span><span class="m-value">33″</span></div>
+      <div class="measurement-row"><span class="m-label">Eyes</span><span class="m-value">Dark Brown</span></div>
+      <div class="measurement-row"><span class="m-label">Hair</span><span class="m-value">Black</span></div>
+      <div class="measurement-row"><span class="m-label">Age</span><span class="m-value">23</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="contact-eyebrow">Bookings &amp; Inquiries</p>
+  <h2 class="contact-title">Let's Work<br>Together</h2>
+  <a href="mailto:Reddydani09@gmail.com" class="contact-email-link">Reddydani09@gmail.com</a>
+  <br/>
+  <div class="contact-availability">Currently Accepting New Projects</div>
+</section>
+
+<footer>
+  <p>© 2026 Dhani Reddy &nbsp;·&nbsp; All Rights Reserved</p>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">✕ close</button>
+  <button class="lightbox-prev" onclick="changePhoto(-1)">‹</button>
+  <img id="lightboxImg" src="" alt=""/>
+  <button class="lightbox-next" onclick="changePhoto(1)">›</button>
+  <div class="lightbox-counter" id="lightboxCounter"></div>
+</div>
+
+<script>
+  const photos = [
+    "https://objectstorage.us-ashburn-1.oraclecloud.com/n/ideul7fgzxb6/b/Dharana_portfolio/o/_TF02407_Original.jpeg",
+    "https://objectstorage.us-ashburn-1.oraclecloud.com/n/ideul7fgzxb6/b/Dharana_portfolio/o/_TF02424_Original.jpeg",
+    "https://objectstorage.us-ashburn-1.oraclecloud.com/n/ideul7fgzxb6/b/Dharana_portfolio/o/_TF02688_Original.jpeg",
+    "https://objectstorage.us-ashburn-1.oraclecloud.com/n/ideul7fgzxb6/b/Dharana_portfolio/o/_TF02878_Original.jpeg",
+    "https://objectstorage.us-ashburn-1.oraclecloud.com/n/ideul7fgzxb6/b/Dharana_portfolio/o/_TF02822_Original.jpeg",
+    "https://objectstorage.us-ashburn-1.oraclecloud.com/n/ideul7fgzxb6/b/Dharana_portfolio/o/_TF02810_Original.jpeg",
+    "https://objectstorage.us-ashburn-1.oraclecloud.com/n/ideul7fgzxb6/b/Dharana_portfolio/o/_TF02906_Original.jpeg",
+    "https://objectstorage.us-ashburn-1.oraclecloud.com/n/ideul7fgzxb6/b/Dharana_portfolio/o/_TF02253_Original.jpeg",
+    "https://objectstorage.us-ashburn-1.oraclecloud.com/n/ideul7fgzxb6/b/Dharana_portfolio/o/_TF02199_Original.jpeg",
+    "https://objectstorage.us-ashburn-1.oraclecloud.com/n/ideul7fgzxb6/b/Dharana_portfolio/o/_TF01943_Original.jpeg",
+    "https://objectstorage.us-ashburn-1.oraclecloud.com/n/ideul7fgzxb6/b/Dharana_portfolio/o/IMG_4949.jpeg",
+    "https://objectstorage.us-ashburn-1.oraclecloud.com/n/ideul7fgzxb6/b/Dharana_portfolio/o/IMG_0929.jpeg",
+    "https://objectstorage.us-ashburn-1.oraclecloud.com/n/ideul7fgzxb6/b/Dharana_portfolio/o/IMG_3044.jpeg",
+    "https://objectstorage.us-ashburn-1.oraclecloud.com/n/ideul7fgzxb6/b/Dharana_portfolio/o/IMG_5093.jpeg",
+    "https://objectstorage.us-ashburn-1.oraclecloud.com/n/ideul7fgzxb6/b/Dharana_portfolio/o/IMG_5239.jpeg"
+  ];
+
+  let currentIndex = 0;
+
+  function openLightbox(index) {
+    currentIndex = index;
+    document.getElementById('lightboxImg').src = photos[index];
+    document.getElementById('lightboxCounter').textContent = (index + 1) + ' / ' + photos.length;
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function changePhoto(direction) {
+    currentIndex = (currentIndex + direction + photos.length) % photos.length;
+    document.getElementById('lightboxImg').src = photos[currentIndex];
+    document.getElementById('lightboxCounter').textContent = (currentIndex + 1) + ' / ' + photos.length;
+  }
+
+  document.getElementById('lightbox').addEventListener('click', function(e) {
+    if (e.target === this) closeLightbox();
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowRight') changePhoto(1);
+    if (e.key === 'ArrowLeft') changePhoto(-1);
+  });
+</script>
+</body>
+</html>
